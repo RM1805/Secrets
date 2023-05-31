@@ -28,7 +28,7 @@ main().catch((err) => console.log(err));
 
 async function main() {
     mongoose.set("strictQuery", false);
-    await mongoose.connect("mongodb+srv://therishimishra:Rishi123@cluster0.qj0tyeo.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.qj0tyeo.mongodb.net/secretusers?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("Connected to the database");
 }
 
