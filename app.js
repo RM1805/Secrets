@@ -30,10 +30,11 @@ app.use(passport.session());
 
 main().catch((err) => console.log(err));
 
-const dbUsername = process.env.DB_USERNAME;
-const dbPassword = process.env.DB_PASSWORD;
+
  
 async function main() {
+  const dbUsername = process.env.DB_USERNAME;
+  const dbPassword = process.env.DB_PASSWORD;
   mongoose.set("strictQuery", false);
   await mongoose.connect(`mongodb+srv://${dbUsername}:${dbPassword}@cluster0.qj0tyeo.mongodb.net/?retryWrites=true&w=majority`, {useNewUrlParser: true,});
   console.log("Connected to the database");
