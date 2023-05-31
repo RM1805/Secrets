@@ -32,7 +32,7 @@ main().catch((err) => console.log(err));
  
 async function main() {
   mongoose.set("strictQuery", false);
-  await mongoose.connect("mongodb://127.0.0.1/userDB", {useNewUrlParser: true,});
+  await mongoose.connect("mongodb+srv://therishimishra:Rishi123@cluster0.qj0tyeo.mongodb.net/?retryWrites=true&w=majority", {useNewUrlParser: true,});
   console.log("Connected to the database");
 }
 
