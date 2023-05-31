@@ -40,8 +40,10 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     googleId: String,
-    secret: String
+    secret: String,
+    username: { type: String, required: false }
 });
+
 
 
 userSchema.plugin(passportLocalMongoose);
@@ -50,7 +52,8 @@ userSchema.plugin(findOrCreate);
 // Mongoose Encryption Method
 // userSchema.plugin(encrypt, {secret: process.env.SECRET, encryptedFields: ["password"]});
 
-const User = mongoose.model("User", userSchema.index({ username: 1 }, { unique: true, sparse: true }));
+const User = mongoose.model("User", userSchema);
+
 
 
 passport.use(User.createStrategy());
@@ -156,21 +159,25 @@ app.get("/logout", function(req, res){
 });
 
 app.post("/register", function(req, res) {
-    if (req.body.username && req.body.username.trim() !== "") {
-        User.register({ username: req.body.username }, req.body.password, function(err, user) {
-            if (err) {
-                console.log(err);
-                res.redirect("/register");
-            } else {
-                passport.authenticate("local")(req, res, function() {
-                    res.redirect("/secrets");
-                });
-            }
-        });
-    } else {
+    const username = req.body.username.trim();
+
+    if (!username) {
         res.render("register", { errorMessage: "Please provide a valid username." });
+        return;
     }
+
+    User.register({ username: username }, req.body.password, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.redirect("/register");
+        } else {
+            passport.authenticate("local")(req, res, function() {
+                res.redirect("/secrets");
+            });
+        }
+    });
 });
+
 
 
 app.post("/login", function(req, res){
