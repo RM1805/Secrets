@@ -192,7 +192,7 @@ req.login(user, function(err){
 
 
 
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
     console.log("server started on port 3000");
 });
 
@@ -200,40 +200,3 @@ app.listen(3000, function(){
 
 
 
-    // Register Portion
-    // bcrypt.hash(req.body.password, saltRounds, function(err, hash){
-    // const newUser = new User({
-    //     email: req.body.username,
-    //     password: hash
-    // });
-
-    // newUser.save(function(err){
-    //     if(err){
-    //         console.log(err);
-    //     } else {
-    //         res.render("secrets");
-    //     }
-    // });
-    // });
-
-
-        // Login Part
-    // const username = req.body.username;
-    // const password = req.body.password;
-
-    // User.findOne({email: username}, function(err, foundUser){
-    //     if(err) {
-    //         console.log(err);
-    //     } else {
-    //         if(foundUser){
-
-    //             bcrypt.compare(password, foundUser.password, function(err, result){
-    //                 if(result===true){
-    //                    res.render("secrets");
-    //                 }
-    //             });
-                    
-                 
-    //         }
-    //     }
-    // });
