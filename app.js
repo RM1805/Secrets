@@ -126,9 +126,15 @@ app.post("/submit", function(req, res) {
 });
 
 app.get("/logout", function(req, res) {
-    req.logout();
-    res.redirect("/");
+    req.logout(function(err) {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect("/");
+    });
 });
+
+
 
 app.post("/register", function(req, res) {
     const username = req.body.username.trim();
